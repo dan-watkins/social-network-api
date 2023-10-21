@@ -19,7 +19,7 @@ module.exports = {
       const user = await User.findOne({ _id: req.params.id }).select("-__V");
 
       if (!user) {
-        res.status(404).json({ message: "No User found with that ID!" });
+        return res.status(404).json({ message: "No User found with that ID!" });
       }
 
       res.json({
@@ -46,7 +46,7 @@ module.exports = {
       const user = await User.findOneAndRemove({ _id: req.params.id });
 
       if (!user) {
-        res.status(404).json({ message: "No User found with that ID!" });
+        return res.status(404).json({ message: "No User found with that ID!" });
       }
       res.json({ message: "User successfully deleted!" });
     } catch (err) {

@@ -19,7 +19,7 @@ module.exports = {
             const thought = await Thought.findOne({_id: req.params.id}).select("-__V");
 
             if (!thought) {
-                res.status(404).json({message: 'No thought found with this ID!'})
+                return res.status(404).json({message: 'No thought found with this ID!'})
             }
             res.json((
                 thought
@@ -45,7 +45,7 @@ module.exports = {
             const thought = await Thought.findOneAndRemove({ _id: req.params.id });
 
             if (!thought) {
-                res.status(404).json({ message: "No Thought found with that ID!"});
+                return res.status(404).json({ message: "No Thought found with that ID!"});
             }
             res.json({ message: "Thought successfully deleted!"})
         } catch (err) {
