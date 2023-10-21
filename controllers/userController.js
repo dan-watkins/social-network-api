@@ -16,7 +16,7 @@ module.exports = {
 
   async getSingleUser(req, res) {
     try {
-      const user = await User.findOne({ _id: req.params._id }).select("-__V");
+      const user = await User.findOne({ _id: req.params.id }).select("-__V");
 
       if (!user) {
         res.status(404).json({ message: "No User found with that ID!" });
@@ -43,9 +43,9 @@ module.exports = {
 
   async deleteUser(req, res) {
     try {
-      const user = await User.findOneAndRemove({ _id: req.params._id });
+      const user = await User.findOneAndRemove({ _id: req.params.id });
 
-      if (!student) {
+      if (!user) {
         res.status(404).json({ message: "No User found with that ID!" });
       }
       res.json({ message: "User successfully deleted!" });
