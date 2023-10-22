@@ -18,7 +18,7 @@ const reactionSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      //Use a getter method to format the timestamp on query//
+      get: formatDate,
     },
   },
   {
@@ -28,5 +28,12 @@ const reactionSchema = new Schema(
     id: false,
   }
 );
+
+function formatDate(createdAt) {
+  const year = createdAt.getFullYear();
+  const month = (1 + createdAt.getMonth()).toString();
+  const day = createdAt.getDate().toString();
+  return month + "/" + day + "/" + year;
+}
 
 module.exports = reactionSchema;
