@@ -1,4 +1,4 @@
-const { User, Thought } = require("../models");
+const { User } = require("../models");
 
 module.exports = {
   async getUsers(req, res) {
@@ -56,6 +56,42 @@ module.exports = {
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
+    }
+  },
+
+  async addFriend(req, res) {
+    try {
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $push: { friends: req.params.friendId } },
+        { new: true }
+      );
+
+      if (!user) {
+        return res.status(404).json({ message: "No user found with that ID!" });
+      }
+      res.json(user);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+  },
+
+  async removeFriend(req, res) {
+    try {
+      const user = await User.findByIdAndUpdate(
+        { _id: req.params.userId },
+        { $pull: { friends: req.params.friendId } },
+        { new: true }
+      );
+
+      if (!user) {
+        return res.status(404).json({ message: "No user found with that ID!" });
+      }
+      res.json(user);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json(err);
     }
   },
 
