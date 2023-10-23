@@ -67,7 +67,7 @@ module.exports = {
           .status(404)
           .json({ message: "No thought found with that ID!" });
       }
-      res.status(200).json(user);
+      res.status(200).json(thought);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
